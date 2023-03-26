@@ -1,36 +1,3 @@
-;  Created by Sandify
-;  https://sandify.org
-;  Version: 0.2.8
-;
-;  Machine type: Rectangular
-;    Min X (mm): 0
-;    Max X (mm): 60
-;    Min Y (mm): 0
-;    Max Y (mm): 40
-;  Content type: shape
-;  Layer:
-;    Shape: Tessellation Twist
-;    Name: polygon
-;    Number of sides: 7
-;    Iterations: 4
-;    Rotate and twist: 10
-;    Visible: true
-;    Initial width: 4
-;    Initial height: 4
-;    X offset: 0
-;    Y offset: 0
-;    Rotate (degrees): 0
-;    Reverse path: false
-;    Fine tuning:
-;      Connect to next layer: line
-;      Draw portion of path (%): 100
-;      Backtrack at end (%): 0
-;      Rotate starting point (%): 0
-;  Reverse export path: false
-;
-; File name: 'tessellation_twist '
-; File type: gcode
-;
 
 G1 X60.000 Y8.625
 G1 X60.000 Y6.041

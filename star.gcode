@@ -1,42 +1,4 @@
-;  Created by Sandify
-;  https://sandify.org
-;  Version: 0.2.8
-;
-;  Machine type: Rectangular
-;    Min X (mm): 0
-;    Max X (mm): 60
-;    Min Y (mm): 0
-;    Max Y (mm): 40
-;  Content type: shape
-;  Layer:
-;    Shape: Star
-;    Name: polygon
-;    Number of points: 5
-;    Size of points: 0.5
-;    Visible: true
-;    Initial width: 2
-;    Initial height: 2
-;    X offset: 0
-;    Y offset: 0
-;    Rotate (degrees): 0
-;    Reverse path: false
-;    Number of loops: 50
-;    When transforming shape: smear
-;    Scale: true
-;      Scale (+/-): 100
-;      Scale by: constant
-;    Spin: false
-;    Track: false
-;    Fine tuning:
-;      Connect to next layer: line
-;      Draw portion of path (%): 100
-;      Backtrack at end (%): 0
-;      Rotate starting point (%): 0
-;  Reverse export path: false
-;
-; File name: 'star'
-; File type: gcode
-;
+
 
 G1 X31.000 Y20.000
 G1 X31.780 Y21.293
