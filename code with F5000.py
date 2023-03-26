@@ -24,47 +24,42 @@ def send_wake_up(ser):
     ser.flushInput()  # Flush startup text in serial input
 
 
-def wait_for_movement_completion(ser,cleaned_line):
-
+def wait_for_movement_completion(ser, cleaned_line):
     Event().wait(1)
-
     if cleaned_line != '$X' or '$$':
-
         idle_counter = 0
-
         while True:
-
             # Event().wait(0.01)
             ser.reset_input_buffer()
             command = str.encode('?' + '\n')
             ser.write(command)
             grbl_out = ser.readline() 
             grbl_response = grbl_out.strip().decode('utf-8')
-
             if grbl_response != 'ok':
-
                 if grbl_response.find('Idle') > 0:
                     idle_counter += 1
-
             if idle_counter > 10:
                 break
-    return
 
 
 def stream_gcode(GRBL_port_path,gcode_path):
-    # with context opens file/connection and closes it if function(with) scope is left
     with open(gcode_path, "r") as file, serial.Serial(GRBL_port_path, BAUD_RATE) as ser:
         send_wake_up(ser)
+        first_line = True  # flag to check if it is the first line
         for line in file:
             # cleaning up gcode from file
             cleaned_line = remove_eol_chars(remove_comment(line))
             if cleaned_line:  # checks if string is empty
                 print("Sending gcode:" + str(cleaned_line))
-                # converts string to byte encoded string and append newline
-                command = str.encode(cleaned_line.strip() + ' F5000\n')
+                if first_line:
+                    command = str.encode(cleaned_line.strip() + '\n')
+                    first_line = False
+                else:
+                    # converts string to byte encoded string and append newline
+                    command = str.encode(cleaned_line.strip() + ' F5000\n')
                 ser.write(command)  # Send g-code
 
-                wait_for_movement_completion(ser,cleaned_line)
+                wait_for_movement_completion(ser, cleaned_line)
 
                 grbl_out = ser.readline()  # Wait for response with carriage return
                 print(" : " , grbl_out.strip().decode('utf-8'))
