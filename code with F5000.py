@@ -27,7 +27,7 @@ def send_wake_up(ser):
 def wait_for_movement_completion(ser, cleaned_line):
     Event().wait(1)
     if cleaned_line != '$X' or '$$':
-        idle_counter = 0
+        idle_counter = 10 # to skip count up 10 to
         while True:
             # Event().wait(0.01)
             ser.reset_input_buffer()
@@ -36,6 +36,7 @@ def wait_for_movement_completion(ser, cleaned_line):
             grbl_out = ser.readline() 
             grbl_response = grbl_out.strip().decode('utf-8')
             if grbl_response != 'ok':
+                break # skip idler 
                 if grbl_response.find('Idle') > 0:
                     idle_counter += 1
             if idle_counter > 10:

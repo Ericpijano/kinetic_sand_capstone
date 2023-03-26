@@ -1,8 +1,24 @@
 import tkinter as tk
+import serial
+import time
+from threading import Event
+
+BAUD_RATE = 115200
+
+def send_wake_up(ser):
+    # Wake up
+    # Hit enter a few times to wake the Printrbot
+    ser.write(str.encode("\r\n\r\n"))
+    time.sleep(2)   # Wait for Printrbot to initialize
+    ser.flushInput()  # Flush startup text in serial input
+
+def send_home_sequence(ser):
+    # Send $h command to the serial monitor
+    ser.write(str.encode("$h\n"))
 
 # Create a new window
 window = tk.Tk()
-window.title("My App")
+window.title("Kinetic Sand art")
 window.configure(bg='#222')
 
 # Get screen width and height
@@ -18,7 +34,10 @@ label.pack(pady=20)
 
 # Define the button callback functions
 def button1_clicked():
-    print("Button 1 clicked")
+    with serial.Serial('COM1', BAUD_RATE) as ser:
+        send_wake_up(ser)
+        send_home_sequence(ser)
+    print("Homing sequence")
 
 def button2_clicked():
     print("Button 2 clicked")
@@ -27,7 +46,7 @@ def button3_clicked():
     print("Button 3 clicked")
 
 # Create the buttons
-button1 = tk.Button(window, text="Button 1", font=("Helvetica", 16), bg='#115', fg='white', command=button1_clicked)
+button1 = tk.Button(window, text="Homing sequence", font=("Helvetica", 16), bg='#115', fg='white', command=button1_clicked)
 button2 = tk.Button(window, text="Button 2", font=("Helvetica", 16), bg='#115', fg='white', command=button2_clicked)
 button3 = tk.Button(window, text="Button 3", font=("Helvetica", 16), bg='#115', fg='white', command=button3_clicked)
 
