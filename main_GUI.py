@@ -34,16 +34,17 @@ label.pack(pady=20)
 
 # Define the button callback functions
 def button1_clicked():
+    label.configure(text="homing process")
     with serial.Serial('COM1', BAUD_RATE) as ser:
         send_wake_up(ser)
         send_home_sequence(ser)
-    print("Homing sequence")
+    #label.configure(text="homing process")
 
 def button2_clicked():
-    print("Button 2 clicked")
+    label.configure(text="Button 2 clicked")
 
 def button3_clicked():
-    print("Button 3 clicked")
+    label.configure(text="Button 3 clicked")
 
 # Create the buttons
 button1 = tk.Button(window, text="Homing sequence", font=("Helvetica", 16), bg='#115', fg='white', command=button1_clicked)
