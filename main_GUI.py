@@ -16,6 +16,10 @@ def send_home_sequence(ser):
     # Send $h command to the serial monitor
     ser.write(str.encode("$h\n"))
 
+def send_gcode(ser):
+    # Send gcode command to the serial monitor
+    ser.write(str.encode("G1 X25 Y20 f2000 \n"))
+
 # Create a new window
 window = tk.Tk()
 window.title("Kinetic Sand art")
@@ -35,21 +39,25 @@ label.pack(pady=20)
 # Define the button callback functions
 def button1_clicked():
     label.configure(text="homing process")
-    with serial.Serial('COM1', BAUD_RATE) as ser:
+    with serial.Serial('COM5', BAUD_RATE) as ser:
         send_wake_up(ser)
         send_home_sequence(ser)
     #label.configure(text="homing process")
 
 def button2_clicked():
-    label.configure(text="Button 2 clicked")
+    label.configure(text="Gcode command")
+    with serial.Serial('COM5', BAUD_RATE) as ser:
+        send_wake_up(ser)
+        send_gcode(ser)
+    #label.configure(text="homing process")
 
 def button3_clicked():
     label.configure(text="Button 3 clicked")
 
 # Create the buttons
 button1 = tk.Button(window, text="Homing sequence", font=("Helvetica", 16), bg='#115', fg='white', command=button1_clicked)
-button2 = tk.Button(window, text="Button 2", font=("Helvetica", 16), bg='#115', fg='white', command=button2_clicked)
-button3 = tk.Button(window, text="Button 3", font=("Helvetica", 16), bg='#115', fg='white', command=button3_clicked)
+button2 = tk.Button(window, text="Run Pattern", font=("Helvetica", 16), bg='#115', fg='white', command=button2_clicked)
+button3 = tk.Button(window, text="Controller", font=("Helvetica", 16), bg='#115', fg='white', command=button3_clicked)
 
 # Position the buttons
 button1.pack(side=tk.LEFT, padx=20)
