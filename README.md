@@ -6,6 +6,6 @@ thing to do tmr for the code
 - 'convert' gcode streaming to callable functions 
 - fix resend/reset issue with sending "new" gcode each time the button is pressed 
 
-reciever and transmitter code/documentation
+reciever and transmitter imu data code/documentation
 https://www.hackster.io/electronics_champ/how-to-connect-nrf24l01-and-mpu6050-for-gesture-control-154726
  
