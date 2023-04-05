@@ -14,6 +14,7 @@ def generate_gcode(x, y):
     gcode_x = pixel_to_gcode_x(x)
     gcode_y = pixel_to_gcode_y(y)
     print(f'G1 X{gcode_x:.2f} Y{gcode_y:.2f}')
+    result_label.config(text=f'G-Code Position: X{gcode_x:.2f} Y{gcode_y:.2f}')
 
 def on_canvas_press(event):
     global drawing
