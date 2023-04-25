@@ -32,8 +32,8 @@ def wait_for_movement_completion(ser, cleaned_line):
             grbl_response = grbl_out.strip().decode('utf-8')
             if grbl_response != 'ok':
                 break
-                if grbl_response.find('Idle') > 0:
-                    idle_counter += 1
+            if grbl_response.find('Idle') > 0:
+                idle_counter += 1
             if idle_counter > 10:
                 break
 
@@ -46,21 +46,6 @@ def pixel_to_gcode_y(y):
 
 def draw_mark(canvas, x, y):
     canvas.create_oval(x-2, y-2, x+2, y+2, fill='black', outline='')
-
-# Create a global variable for the serial connection
-ser = None
-
-# Function to open the serial connection
-def open_serial_connection():
-    global ser
-    ser = serial.Serial('COM5', BAUD_RATE)
-    send_wake_up(ser)
-
-# Function to close the serial connection
-def close_serial_connection():
-    global ser
-    if ser:
-        ser.close()
 
 gcode_list = []
 
@@ -115,9 +100,10 @@ def on_canvas_motion(event, result_label, canvas):
         draw_mark(canvas, event.x, event.y)  # Pass canvas here
         generate_gcode(event.x, event.y, result_label)
 
-def erase_drawing():
+def erase_drawing(canvas, result_label):
     canvas.delete('all')
     result_label.config(text='G-Code Position: X- Y-')
+
 
 # Grid dimensions and units
 canvas_width, canvas_height = 600, 400
@@ -134,7 +120,7 @@ def create_map_window(parent_window):
     result_label = tk.Label(root, text='G-Code Position: X- Y-', font=('Arial', 12))
     result_label.pack(pady=5)
 
-    erase_button = tk.Button(root, text='Erase', command=erase_drawing)
+    erase_button = tk.Button(root, text='Erase', command=lambda: erase_drawing(canvas, result_label))
     erase_button.pack(pady=5)
 
     # Add the Close button
@@ -152,7 +138,7 @@ def create_map_window(parent_window):
     # Pass the canvas variable as well
     canvas.bind('<B1-Motion>', lambda event: on_canvas_motion(event, result_label, canvas))
     # Open the serial connection
-    open_serial_connection()
+ 
 
     return root
 
@@ -162,8 +148,7 @@ def close_map_window(window, parent_window):
     window.destroy()
     parent_window.deiconify()
 
-    # Close the serial connection
-    close_serial_connection()
+
 
 # Replace the last lines with these lines to run the map window standalone or as a module
 if __name__ == '__main__':

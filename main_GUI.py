@@ -10,13 +10,12 @@ from tkinter import simpledialog
 # Import colorchooser for the color picker
 from tkinter.colorchooser import askcolor
 
-BAUD_RATE = 9600  # Update the BAUD_RATE to match sample_communication.py
+BAUD_RATE = 115200  # Update the BAUD_RATE to match sample_communication.py
 
 def open_led_control_window():
     import LED_control
     LED_control.open_window(window)
     window.withdraw()
-    
 
 def send_wake_up(ser):
     ser.write(str.encode("\r\n\r\n"))

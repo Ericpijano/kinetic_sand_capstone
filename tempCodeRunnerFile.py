@@ -1,1 +1,1 @@
-main_window
+result_label
