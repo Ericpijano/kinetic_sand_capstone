@@ -2,15 +2,30 @@ import tkinter as tk
 import serial
 import time
 from threading import Event
+import threading
+
 
 # Add the required functions from Gcode_Streaming.py
 BAUD_RATE = 115200
+stop_streaming = False
 
 def remove_comment(string):
     if (string.find(';') == -1):
         return string
     else:
         return string[:string.index(';')]
+
+def start_gcode_streaming():
+    global stop_streaming
+    stop_streaming = False
+    streaming_thread = threading.Thread(target=send_gcode_list)
+    streaming_thread.start()
+
+def stop_gcode_streaming():
+    global stop_streaming
+    stop_streaming = True
+
+
 
 def remove_eol_chars(string):
     return string.strip()
@@ -62,12 +77,24 @@ def generate_gcode(x, y, result_label):
     gcode_list.append(gcode_command)
 
 def send_gcode_list():
-    global gcode_list
+    global gcode_list, stop_streaming
 
     with serial.Serial('COM5', BAUD_RATE) as ser:
         send_wake_up(ser)
 
+        # Add homing command before sending G-code list
+        homing_command = "$h"
+        ser.write(str.encode(homing_command + '\n'))
+        grbl_out = ser.readline()
+        print("Homing: ", grbl_out.strip().decode('utf-8'))
+        time.sleep(1)  # Add a short delay to ensure homing is completed before proceeding
+
         for gcode_command in gcode_list:
+            # Check if stop_streaming flag is set
+            if stop_streaming:
+                print("G-code streaming stopped")
+                break
+
             cleaned_line = remove_eol_chars(remove_comment(gcode_command))
             if cleaned_line:
                 command = str.encode(cleaned_line.strip() + ' F5000\n')
@@ -78,6 +105,8 @@ def send_gcode_list():
 
     # Clear the G-Code list
     gcode_list = []
+
+
 
 def on_canvas_press(event, result_label):
     global drawing
@@ -127,9 +156,13 @@ def create_map_window(parent_window):
     close_button = tk.Button(root, text='Close', command=lambda: close_map_window(root, parent_window))
     close_button.pack(pady=5)
 
-    send_gcode_button = tk.Button(root, text='Send G-Code', command=send_gcode_list)
+    send_gcode_button = tk.Button(root, text='Send G-Code', command=start_gcode_streaming)
     send_gcode_button.pack(pady=5)
 
+    stop_gcode_button = tk.Button(root, text='Stop', command=stop_gcode_streaming)
+    stop_gcode_button.pack(pady=5)
+
+    
     # Bind events
     drawing = False
     # Update the event bindings to use lambdas to include result_label and canvas
