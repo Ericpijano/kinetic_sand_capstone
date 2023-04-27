@@ -115,6 +115,7 @@ def button3_clicked():
 
 def open_map_window():
     map_window = create_map_window(window)
+    map_window.attributes('-fullscreen', True)
     window.withdraw()
 
 
