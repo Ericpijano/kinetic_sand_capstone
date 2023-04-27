@@ -27,7 +27,7 @@ def main_menu_button():
 
 serialInst = serial.Serial()
 serialInst.baudrate = 9600
-serialInst.port = "/dev/ttyAMA0"  # Replace "COM7" with the correct port for your Arduino
+serialInst.port = "/dev/ttyUSB0"  # Replace "COM7" with the correct port for your Arduino
 serialInst.open()
 
 def open_window(main_window):
