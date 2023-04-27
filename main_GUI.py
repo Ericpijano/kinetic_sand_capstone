@@ -59,7 +59,7 @@ def open_pattern_window():
     square = tk.Button(pattern_window, text="Square", font=("Helvetica", 16), bg='#115', fg='white', command=square_button)
     star = tk.Button(pattern_window, text="Star", font=("Helvetica", 16), bg='#115', fg='white', command=star_button)
     tessellation_twist = tk.Button(pattern_window, text="Tessellation Twist", font=("Helvetica", 16), bg='#115', fg='white', command=tessellation_twist_button)
-    exit_button = tk.Button(pattern_window, text="Back", font=("Helvetica", 16), bg='#115', fg='white', command=exit_button)
+    exit_button = tk.Button(pattern_window, text="Main Menu", font=("Helvetica", 16), bg='#115', fg='white', command=exit_button)
 
     # Position the buttons
     num_rows = 4

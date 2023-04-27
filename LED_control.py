@@ -27,7 +27,7 @@ def main_menu_button():
 
 serialInst = serial.Serial()
 serialInst.baudrate = 9600
-serialInst.port = "COM10"  # Replace "COM7" with the correct port for your Arduino
+serialInst.port = "COM12"  # Replace "COM7" with the correct port for your Arduino
 serialInst.open()
 
 def open_window(main_window):
@@ -40,6 +40,7 @@ def open_window(main_window):
     screen_height = window.winfo_screenheight()
 
     window.geometry("%dx%d+0+0" % (screen_width, screen_height))
+    window.attributes('-fullscreen', True)  # Add this line to open the window in fullscreen
 
     brightness_label = tk.Label(window, text="Brightness", font=("Helvetica", 16), fg="white", bg='#222')
     brightness_scale = tk.Scale(window, from_=0, to=255, orient=tk.HORIZONTAL, command=set_brightness, bg='#115', fg='white')
