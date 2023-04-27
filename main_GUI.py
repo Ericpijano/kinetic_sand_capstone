@@ -61,11 +61,27 @@ def open_pattern_window():
     exit_button = tk.Button(pattern_window, text="Exit", font=("Helvetica", 16), bg='#115', fg='white', command=exit_button)
 
     # Position the buttons
-    sandify.place(relx=0.3, rely=0.4, anchor=tk.CENTER)
-    square.place(relx=0.4, rely=0.4, anchor=tk.CENTER)
-    star.place(relx=0.5, rely=0.4, anchor=tk.CENTER)
-    tessellation_twist.place(relx=0.6, rely=0.4, anchor=tk.CENTER)
-    exit_button.place(relx=0.5, rely=0.6, anchor=tk.CENTER)
+    num_rows = 4
+    num_columns = 5
+
+    start_row = (num_rows - 1) // 2
+    start_col = (num_columns - 5) // 2
+
+    sandify.grid(in_=pattern_window, row=start_row, column=start_col, padx=10, pady=10, sticky="nsew")
+    square.grid(in_=pattern_window, row=start_row, column=start_col + 1, padx=10, pady=10, sticky="nsew")
+    star.grid(in_=pattern_window, row=start_row, column=start_col + 2, padx=10, pady=10, sticky="nsew")
+    tessellation_twist.grid(in_=pattern_window, row=start_row, column=start_col + 3, padx=10, pady=10, sticky="nsew")
+    exit_button.grid(in_=pattern_window, row=start_row + 1, column=start_col + 2, padx=10, pady=10, sticky="nsew")
+
+    for i in range(num_rows):
+        pattern_window.rowconfigure(i, weight=1)
+
+    # Increase the weight of the first row to push the buttons slightly upwards
+    pattern_window.rowconfigure(0, weight=2)
+
+    for i in range(num_columns):
+        pattern_window.columnconfigure(i, weight=1)
+
 
 window = tk.Tk()
 window.title("Kinetic Sand art")
