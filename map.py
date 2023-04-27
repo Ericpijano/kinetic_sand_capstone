@@ -149,13 +149,16 @@ def create_map_window(parent_window):
     left_frame = tk.Frame(top_frame)
     left_frame.pack(side='left')
 
-    erase_button = tk.Button(left_frame, text='Erase', command=lambda: erase_drawing(canvas, result_label))
+    button_width = 10
+    button_height = 8
+
+    erase_button = tk.Button(left_frame, text='Erase', command=lambda: erase_drawing(canvas, result_label), width=button_width, height=button_height)
     erase_button.pack(pady=5)
 
-    send_gcode_button = tk.Button(left_frame, text='Send G-Code', command=start_gcode_streaming)
+    send_gcode_button = tk.Button(left_frame, text='Send G-Code', command=start_gcode_streaming, width=button_width, height=button_height)
     send_gcode_button.pack(pady=5)
 
-    stop_gcode_button = tk.Button(left_frame, text='Stop', command=stop_gcode_streaming)
+    stop_gcode_button = tk.Button(left_frame, text='Stop', command=stop_gcode_streaming, width=button_width, height=button_height)
     stop_gcode_button.pack(pady=5)
 
     canvas = tk.Canvas(top_frame, width=canvas_width, height=canvas_height, bg='#FFB533')
@@ -165,7 +168,7 @@ def create_map_window(parent_window):
     right_frame.pack(side='right')
 
     # Add the Close button
-    close_button = tk.Button(right_frame, text='Close', command=lambda: close_map_window(root, parent_window))
+    close_button = tk.Button(right_frame, text='Close', command=lambda: close_map_window(root, parent_window), width=button_width, height=button_height)
     close_button.pack(pady=5)
 
     result_label = tk.Label(root, text='G-Code Position: X- Y-', font=('Arial', 12))
