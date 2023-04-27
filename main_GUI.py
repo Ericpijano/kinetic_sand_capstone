@@ -91,6 +91,7 @@ screen_width = window.winfo_screenwidth()
 screen_height = window.winfo_screenheight()
 
 window.geometry("%dx%d+0+0" % (screen_width, screen_height))
+window.attributes('-fullscreen', True)  # Add this line to open the window in fullscreen
 
 window.rowconfigure(0, weight=1)
 window.columnconfigure(0, weight=1)
