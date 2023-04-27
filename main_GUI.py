@@ -127,10 +127,10 @@ for i in range(num_rows):
 for i in range(num_columns):
     content.columnconfigure(i, weight=1)
     
-content.columnconfigure(0, weight=1)
-content.columnconfigure(1, weight=1)
-content.columnconfigure(2, weight=1)
-content.columnconfigure(3, weight=1)
-content.columnconfigure(4, weight=1)
+#content.columnconfigure(0, weight=1)
+#content.columnconfigure(1, weight=1)
+#content.columnconfigure(2, weight=1)
+#content.columnconfigure(3, weight=1)
+#content.columnconfigure(4, weight=1)
 
 window.mainloop()
