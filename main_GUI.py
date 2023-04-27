@@ -109,7 +109,7 @@ button2 = tk.Button(window, text="Run Pattern", font=("Helvetica", 16), bg='#115
 button3 = tk.Button(window, text="Controller", font=("Helvetica", 16), bg='#115', fg='white', command=button3_clicked)
 button4 = tk.Button(window, text="LED Control", font=("Helvetica", 16), bg='#115', fg='white', command=open_led_control_window)
 
-num_rows = 3
+num_rows = 4
 num_columns = 5
 
 start_row = (num_rows - 1) // 2
