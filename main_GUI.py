@@ -76,8 +76,14 @@ screen_height = window.winfo_screenheight()
 
 window.geometry("%dx%d+0+0" % (screen_width, screen_height))
 
+window.rowconfigure(0, weight=1)
+window.columnconfigure(0, weight=1)
+
+content = tk.Frame(window, bg='#222')
+content.grid(row=0, column=0, sticky="nsew")
+
 label = tk.Label(window, text="", font=("Helvetica", 20), fg="white", bg='#222')
-label.pack(pady=20)
+label.grid(in_=content, row=0, column=0, columnspan=5, pady=20)
 
 def button1_clicked():
     label.configure(text="homing process")
@@ -95,18 +101,24 @@ def open_map_window():
     map_window = create_map_window(window)
     window.withdraw()
 
+
+
 button_map = tk.Button(window, text="Map", font=("Helvetica", 16), bg='#115', fg='white', command=open_map_window)
 button1 = tk.Button(window, text="Homing sequence", font=("Helvetica", 16), bg='#115', fg='white', command=button1_clicked)
 button2 = tk.Button(window, text="Run Pattern", font=("Helvetica", 16), bg='#115', fg='white', command=button2_clicked)
 button3 = tk.Button(window, text="Controller", font=("Helvetica", 16), bg='#115', fg='white', command=button3_clicked)
 button4 = tk.Button(window, text="LED Control", font=("Helvetica", 16), bg='#115', fg='white', command=open_led_control_window)
 
+button_map.grid(in_=content, row=1, column=0, padx=10, pady=10, sticky="ew")
+button1.grid(in_=content, row=1, column=1, padx=10, pady=10, sticky="ew")
+button2.grid(in_=content, row=1, column=2, padx=10, pady=10, sticky="ew")
+button3.grid(in_=content, row=1, column=3, padx=10, pady=10, sticky="ew")
+button4.grid(in_=content, row=1, column=4, padx=10, pady=10, sticky="ew")
 
-# Position the buttons
-button_map.place(relx=0.3, rely=0.5, anchor=tk.CENTER)
-button1.place(relx=0.4, rely=0.5, anchor=tk.CENTER)
-button2.place(relx=0.5, rely=0.5, anchor=tk.CENTER)
-button3.place(relx=0.6, rely=0.5, anchor=tk.CENTER)
-button4.place(relx=0.7, rely=0.5, anchor=tk.CENTER)
+content.columnconfigure(0, weight=1)
+content.columnconfigure(1, weight=1)
+content.columnconfigure(2, weight=1)
+content.columnconfigure(3, weight=1)
+content.columnconfigure(4, weight=1)
 
 window.mainloop()
