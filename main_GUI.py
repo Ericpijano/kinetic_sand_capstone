@@ -118,6 +118,8 @@ def open_map_window():
     map_window.attributes('-fullscreen', True)
     window.withdraw()
 
+def exit_main_window():
+    window.destroy()
 
 
 button_map = tk.Button(window, text="Map", font=("Helvetica", 16), bg='#115', fg='white', command=open_map_window)
@@ -131,6 +133,10 @@ num_columns = 5
 
 start_row = (num_rows - 1) // 2
 start_col = (num_columns - 5) // 2
+
+exit_main = tk.Button(window, text="Exit", font=("Helvetica", 16), bg='#115', fg='white', command=exit_main_window)
+exit_main.grid(in_=content, row=2, column=0, columnspan=5, pady=20)
+
 
 button_map.grid(in_=content, row=start_row, column=start_col, padx=10, pady=10, sticky="nsew")
 button1.grid(in_=content, row=start_row, column=start_col + 1, padx=10, pady=10, sticky="nsew")
