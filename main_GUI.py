@@ -109,12 +109,24 @@ button2 = tk.Button(window, text="Run Pattern", font=("Helvetica", 16), bg='#115
 button3 = tk.Button(window, text="Controller", font=("Helvetica", 16), bg='#115', fg='white', command=button3_clicked)
 button4 = tk.Button(window, text="LED Control", font=("Helvetica", 16), bg='#115', fg='white', command=open_led_control_window)
 
-button_map.grid(in_=content, row=1, column=0, padx=10, pady=10, sticky="ew")
-button1.grid(in_=content, row=1, column=1, padx=10, pady=10, sticky="ew")
-button2.grid(in_=content, row=1, column=2, padx=10, pady=10, sticky="ew")
-button3.grid(in_=content, row=1, column=3, padx=10, pady=10, sticky="ew")
-button4.grid(in_=content, row=1, column=4, padx=10, pady=10, sticky="ew")
+num_rows = 3
+num_columns = 5
 
+start_row = (num_rows - 1) // 2
+start_col = (num_columns - 5) // 2
+
+button_map.grid(in_=content, row=start_row, column=start_col, padx=10, pady=10, sticky="nsew")
+button1.grid(in_=content, row=start_row, column=start_col + 1, padx=10, pady=10, sticky="nsew")
+button2.grid(in_=content, row=start_row, column=start_col + 2, padx=10, pady=10, sticky="nsew")
+button3.grid(in_=content, row=start_row, column=start_col + 3, padx=10, pady=10, sticky="nsew")
+button4.grid(in_=content, row=start_row, column=start_col + 4, padx=10, pady=10, sticky="nsew")
+
+for i in range(num_rows):
+    content.rowconfigure(i, weight=1)
+
+for i in range(num_columns):
+    content.columnconfigure(i, weight=1)
+    
 content.columnconfigure(0, weight=1)
 content.columnconfigure(1, weight=1)
 content.columnconfigure(2, weight=1)
