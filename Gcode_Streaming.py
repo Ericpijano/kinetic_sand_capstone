@@ -70,7 +70,7 @@ def stream_gcode(GRBL_port_path,gcode_path):
 
 if __name__ == "__main__":
     # GRBL_port_path = '/dev/tty.usbserial-A906L14X'
-    GRBL_port_path = 'COM5'
+    GRBL_port_path = '/dev/ttyACM0'
     gcode_path = 'grbl_test.gcode'
 
     print("USB Port: ", GRBL_port_path)

@@ -54,6 +54,25 @@ def open_pattern_window():
     def exit_button():
         pattern_window.destroy()
 
+    # Define button functions
+    def TMU_button():
+        stream_gcode('COM5', 'TMU.gcode')
+
+    def eraser_button():
+        stream_gcode('COM5', 'eraser.gcode')
+
+    def cog_triangle_button():
+        stream_gcode('COM5', 'cog_triangle.gcode')
+
+    def koch_triangle_button():
+        stream_gcode('COM5', 'koch_triangle.gcode')    
+
+    # Create buttons
+    TMU = tk.Button(pattern_window, text="TMU", font=("Helvetica", 16), bg='#115', fg='white', command=TMU_button)
+    eraser = tk.Button(pattern_window, text="Eraser", font=("Helvetica", 16), bg='#115', fg='white', command=eraser_button)
+    cog_triangle = tk.Button(pattern_window, text="Cog Triangle", font=("Helvetica", 16), bg='#115', fg='white', command=cog_triangle_button)
+    koch_triangle = tk.Button(pattern_window, text="Koch Triangle", font=("Helvetica", 16), bg='#115', fg='white', command=koch_triangle_button)
+
     # Create buttons
     sandify = tk.Button(pattern_window, text="Sandify", font=("Helvetica", 16), bg='#115', fg='white', command=sandify_button)
     square = tk.Button(pattern_window, text="Square", font=("Helvetica", 16), bg='#115', fg='white', command=square_button)
@@ -67,6 +86,13 @@ def open_pattern_window():
 
     start_row = (num_rows - 1) // 2
     start_col = (num_columns - 5) // 2
+
+    # Position the buttons
+    TMU.grid(in_=pattern_window, row=start_row + 1, column=start_col, padx=10, pady=10, sticky="nsew")
+    eraser.grid(in_=pattern_window, row=start_row + 1, column=start_col + 1, padx=10, pady=10, sticky="nsew")
+    cog_triangle.grid(in_=pattern_window, row=start_row + 1, column=start_col + 2, padx=10, pady=10, sticky="nsew")
+    koch_triangle.grid(in_=pattern_window, row=start_row + 1, column=start_col + 3, padx=10, pady=10, sticky="nsew")
+
 
     sandify.grid(in_=pattern_window, row=start_row, column=start_col, padx=10, pady=10, sticky="nsew")
     square.grid(in_=pattern_window, row=start_row, column=start_col + 1, padx=10, pady=10, sticky="nsew")
